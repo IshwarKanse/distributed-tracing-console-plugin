@@ -57,14 +57,14 @@ func main() {
 }
 
 func mergeEnvValue(key string, arg string, defaultValue string) string {
-	if arg != "" {
-		return arg
-	}
-
+	// env var takes priority over CLI arg to allow runtime overrides of operator-provided defaults
 	envValue := os.Getenv(key)
-
 	if envValue != "" {
 		return envValue
+	}
+
+	if arg != "" {
+		return arg
 	}
 
 	return defaultValue
